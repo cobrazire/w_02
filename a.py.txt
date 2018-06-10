@@ -1,0 +1,30 @@
+from flask import Flask, render_template, request
+import os
+import pymysql
+
+app = Flask(__name__)
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+from flask_sqlalchemy import SQLAlchemy
+app.secret_key = 'Secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mak@0108@35.232.225.169:3306/demo2'
+db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+"""
+db = pymysql.connect(host="35.232.231.122",    # your host, usually localhost
+                     user="root",         # your username
+                     passwd="shree@ASH123",  # your password
+                     db="people")
+cur = db.cursor() 
+"""
+@app.route("/")
+def hello():
+    results = db.engine.execute("SELECT * FROM people")
+    print(results)
+    return render_template('index.html', results = results)
+@app.route('/', methods=['POST'])
+def my_form_post():
+    text = request.form['grade']
+    #text = "\""+text+"\""
+    results1 = db.engine.execute("select Room from people where grade = %s", text)
+    print(results1)
+    return render_template('index.html', results=results1)

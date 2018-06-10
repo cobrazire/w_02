@@ -1,0 +1,36 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Hello World</h1>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Grade</th>
+		<th>Room</th>
+		<th>Tel Number</th>
+		<th>Picture</th>
+		<th>Keywords</th>
+	</tr>
+	{% for row in results %}
+	<tr>
+		<td>{{row[0]}}</td>
+		<td>{{row[1]}}</td>
+		<td>{{row[2]}}</td>
+		<td>{{row[3]}}</td>
+		<td>{{row[4]}}</td>
+		<td>{{row[5]}}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<form method = "POST">
+	<input type="number" name="grade">
+
+	<input type="submit"> 
+</form>
+	
+
+
+</body>
+</html>
